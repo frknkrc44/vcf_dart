@@ -17,6 +17,7 @@
 
 part of '../vcf_dart.dart';
 
+typedef VCardNameParameter = MapEntry<String, String>;
 const _newLine = '\r\n';
 
 class VConstants {

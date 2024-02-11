@@ -44,7 +44,7 @@ class VCardProperty {
   final String name;
 
   /// Example: TYPE=HOME
-  final List<MapEntry<String, String>> nameParameters;
+  final List<VCardNameParameter> nameParameters;
 
   /// Example: +1-123-456-7890
   final List<String> values;
@@ -59,7 +59,7 @@ class VCardProperty {
     var name = split[0].trim().split(VConstants._separatorValue);
     var itemSplit = name[0].split(VConstants._separatorItem);
 
-    var nameExtras = <MapEntry<String, String>>[];
+    var nameExtras = <VCardNameParameter>[];
     if (itemSplit.length > 1) {
       nameExtras.add(MapEntry(VConstants.nameParamItemName, itemSplit.first));
     }

@@ -19,12 +19,14 @@ part of '../vcf_dart.dart';
 
 /// Stores multiple [VCardItem] types
 class VCardStack {
-  VCardStack._({required List<VCardItem> items}) : _items = items;
+  /// Create a [VCardStack].
+  VCardStack({
+    List<VCardItem> input = const [],
+  }) {
+    items.addAll(input);
+  }
 
-  final List<VCardItem> _items;
-
-  /// Create an empty [VCardStack]
-  factory VCardStack.empty() => VCardStack._(items: []);
+  final List<VCardItem> items = [];
 
   /// Parse the VCF file
   factory VCardStack.fromData(String data) {
@@ -56,30 +58,15 @@ class VCardStack {
       }
     }
 
-    return VCardStack._(items: items);
+    return VCardStack(input: items);
   }
-
-  /// Add a [VCardItem].
-  void addItem(VCardItem item) => _items.add(item);
-
-  /// Add multiple [VCardItem]s.
-  void addAllItems(List<VCardItem> addedItems) => _items.addAll(addedItems);
-
-  /// Remove a [VCardItem].
-  bool removeItem(VCardItem item) => _items.remove(item);
-
-  /// Remove a [VCardItem] at [index].
-  VCardItem removeItemAt(int index) => _items.removeAt(index);
-
-  /// Clear the [VCardItem] list.
-  void clear() => _items.clear();
 
   @override
   String toString() =>
-      _items.map((e) => e.toString()).toList(growable: false).toString();
+      items.map((e) => e.toString()).toList(growable: false).toString();
 
   /// Create a VCF output from [VCardStack].
-  String get vcardStack => _items.map((e) => e.vcard).join(
+  String get vcardStack => items.map((e) => e.vcard).join(
         '$_newLine$_newLine',
       );
 }

@@ -32,7 +32,7 @@ END:VCARD""";
     test('Create VCardStack', () {
       var ret = true;
       try {
-        vCardStack = VCardStack.empty();
+        vCardStack = VCardStack();
       } catch (e) {
         ret = false;
       }
@@ -58,7 +58,7 @@ END:VCARD""";
             const VCardProperty(
               name: VConstants.email,
               nameParameters: [
-                MapEntry<String, String>(
+                VCardNameParameter(
                   VConstants.nameParamType,
                   VConstants.phoneTypeHome,
                 ),
@@ -76,7 +76,7 @@ END:VCARD""";
     test('Add VCardItem to VCardStack', () {
       var ret = true;
       try {
-        vCardStack.addItem(vCardItemBuilder.build());
+        vCardStack.items.add(vCardItemBuilder.build());
       } catch (e) {
         ret = false;
       }

@@ -43,7 +43,7 @@ print(stack.vcardStack);
 Create an empty VCard stack and add a VCard element:
 
 ```dart
-final stack = VCardStack.empty();
+final stack = VCardStack();
 final builder = VCardItemBuilder()
   ..addProperty(
     const VCardProperty(
@@ -59,7 +59,7 @@ final builder = VCardItemBuilder()
     const VCardProperty(
       name: VConstants.email,
       nameParameters: [
-        MapEntry<String, String>(
+        VCardNameParameter(
           VConstants.nameParamType,
           VConstants.phoneTypeHome,
         ),
@@ -67,7 +67,7 @@ final builder = VCardItemBuilder()
       values: ['test@mail.com'],
     ),
   );
-stack.addItem(builder.build());
+stack.items.add(builder.build());
 ```
 
 ## TODO

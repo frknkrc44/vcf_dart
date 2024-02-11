@@ -17,9 +17,9 @@
 
 part of '../vcf_dart.dart';
 
-extension ListMapEntryExtras on List<MapEntry<String, String>> {
-  List<MapEntry<String, String>> subListByNameParameter(String parameter) {
-    var out = <MapEntry<String, String>>[];
+extension ListMapEntryExtras on List<VCardNameParameter> {
+  List<VCardNameParameter> subListByNameParameter(String parameter) {
+    var out = <VCardNameParameter>[];
     for (var i = 0; i < length; i++) {
       var paramEntry = this[i];
       if (paramEntry.key.equalsIgnoreCase(parameter)) {
@@ -30,12 +30,12 @@ extension ListMapEntryExtras on List<MapEntry<String, String>> {
     return out;
   }
 
-  MapEntry<String, String>? getNameParameter(String parameter, [String? def]) {
+  VCardNameParameter? getNameParameter(String parameter, [String? def]) {
     var params = subListByNameParameter(parameter);
     return params.isNotEmpty
         ? params.first
         : def != null
-            ? MapEntry<String, String>(parameter, def)
+            ? VCardNameParameter(parameter, def)
             : null;
   }
 
