@@ -1,0 +1,35 @@
+name: Package analyzer
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+  branch_protection_rule:
+    types: [created, completed]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  package-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: analyze-stable
+        id: analysis
+        uses: flutterings/dart-package-analyzer@v1
+        with:
+          flutter_version: '3.16.4'
+          flutter_channel: 'stable'
+
+      - name: create-output
+        env:
+          JSON_OUTPUT: ${{ steps.analysis.outputs.json_output }}
+        run: |
+          sudo apt install jq -y
+          export JSON_OUTPUT
+          chmod +x ./generate_pana_summary.sh
+          bash -c ./generate_pana_summary.sh >> $GITHUB_STEP_SUMMARY
