@@ -40,6 +40,8 @@ final stack = VCardStack.fromData(localStr);
 print(stack.vcardStack);
 ```
 
+For more examples, check the [example folder](https://github.com/frknkrc44/vcf_dart/tree/main/example).
+
 Create an empty VCard stack and add a VCard element:
 
 ```dart
