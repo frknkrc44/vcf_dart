@@ -17,6 +17,7 @@
 
 part of '../vcf_dart.dart';
 
+/// Adds some functions to lists/maps for manage your VCard list properly
 extension ListMapEntryExtras on List<VCardNameParameter> {
   /// Lists all parameters by name
   List<VCardNameParameter> subListByNameParameter(

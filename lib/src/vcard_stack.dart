@@ -17,7 +17,7 @@
 
 part of '../vcf_dart.dart';
 
-/// Stores multiple [VCardItem] types
+/// Stores multiple [VCardItem] types and parses your VCard strings
 class VCardStack {
   /// Create a [VCardStack].
   VCardStack({
@@ -26,6 +26,7 @@ class VCardStack {
     items.addAll(input);
   }
 
+  /// Stores the [VcardItem] types
   final List<VCardItem> items = [];
 
   /// Parse the VCF file

@@ -22,6 +22,7 @@ typedef VCardNameParameter = MapEntry<String, String>;
 
 const _newLine = '\r\n';
 
+/// Stores constant values for this library
 class VConstants {
   const VConstants._();
 
