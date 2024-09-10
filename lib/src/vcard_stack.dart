@@ -44,7 +44,9 @@ class VCardStack {
         continue;
       }
 
-      if (!line.contains(VConstants._separatorPair)) {
+      if (out.isNotEmpty &&
+          out.last.values.isNotEmpty &&
+          !line.contains(VConstants._separatorPair)) {
         out.last.values.last += line;
         continue;
       }
