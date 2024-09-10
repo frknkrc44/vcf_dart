@@ -40,6 +40,15 @@ class VCardStack {
         continue;
       }
 
+      if (line.trim().isEmpty) {
+        continue;
+      }
+
+      if (!line.contains(VConstants._separatorPair)) {
+        out.last.values.last += line;
+        continue;
+      }
+
       var property = VCardProperty._fromLine(line);
 
       if (property != null) {
