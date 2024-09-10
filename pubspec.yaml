@@ -1,6 +1,6 @@
 name: vcf_dart
 description: A VCF (VCard) file parser from scratch. It contains support for VCard 2.x-4.x (except the AGENT type).
-version: 1.0.1
+version: 1.0.2
 repository: https://github.com/frknkrc44/vcf_dart
 
 environment:
