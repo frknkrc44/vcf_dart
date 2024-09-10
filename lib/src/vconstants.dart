@@ -115,4 +115,7 @@ class VConstants {
   static const _separatorValue = ';';
   static const _separatorPair = ':';
   static const _separatorItem = '.';
+
+  // escaped separator types
+  static const _escapedSeparatorPair = '\\:';
 }
