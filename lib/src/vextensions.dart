@@ -18,20 +18,29 @@
 part of '../vcf_dart.dart';
 
 extension ListMapEntryExtras on List<VCardNameParameter> {
-  List<VCardNameParameter> subListByNameParameter(String parameter) {
+  /// Lists all parameters by name
+  List<VCardNameParameter> subListByNameParameter(
+    String parameter, {
+    int limit = -1,
+  }) {
     var out = <VCardNameParameter>[];
     for (var i = 0; i < length; i++) {
       var paramEntry = this[i];
-      if (paramEntry.key.equalsIgnoreCase(parameter)) {
+      if (paramEntry.key._equalsIgnoreCase(parameter)) {
         out.add(paramEntry);
+
+        if (limit > 0 && out.length == limit) {
+          break;
+        }
       }
     }
 
     return out;
   }
 
+  /// Returns the first parameter by name
   VCardNameParameter? getNameParameter(String parameter, [String? def]) {
-    var params = subListByNameParameter(parameter);
+    var params = subListByNameParameter(parameter, limit: 1);
     return params.isNotEmpty
         ? params.first
         : def != null
@@ -39,9 +48,11 @@ extension ListMapEntryExtras on List<VCardNameParameter> {
             : null;
   }
 
+  /// Returns the parameter value by name
   String? getNameParameterValue(String parameter, [String? def]) =>
       getNameParameter(parameter, def)?.value;
 
+  /// Removes all parameters by name
   bool removeAllParametersByName(String name) {
     var items = subListByNameParameter(name);
     removeWhere((e) => items.contains(e));
@@ -66,7 +77,7 @@ extension ListMapEntryExtras on List<VCardNameParameter> {
 
 // Copied from https://pub.dev/packages/easy_utils
 extension _StringExtensions on String {
-  List<String> splitMultiChoice(List<String> choices) {
+  List<String> _splitMultiChoice(List<String> choices) {
     for (final str in choices) {
       if (contains(str)) {
         return split(str);
@@ -77,7 +88,7 @@ extension _StringExtensions on String {
   }
 
   /// Check 'starts with' for multiple conditions
-  bool startsWithMultiple(List<String> substrings) {
+  bool _startsWithMultiple(List<String> substrings) {
     for (int i = 0; i < substrings.length; i++) {
       if (startsWith(substrings[i])) {
         return true;
@@ -88,7 +99,7 @@ extension _StringExtensions on String {
   }
 
   /// Check equality of other String but ignoring the case
-  bool equalsIgnoreCase(String? other) {
+  bool _equalsIgnoreCase(String? other) {
     // https://stackoverflow.com/a/54180384
     return toLowerCase() == other?.toLowerCase();
   }
@@ -102,7 +113,7 @@ extension _StringExtensions on String {
   /// var myStr = 'hello,from,dart';
   /// var indexes = myStr.indexesOf(',');
   /// ```
-  List<int> indexesOf(String char) {
+  List<int> _indexesOf(String char) {
     assert(char.length == 1);
 
     List<int> out = [];
@@ -123,8 +134,8 @@ extension _StringExtensions on String {
   /// Returns a String list which contains parts of this String seperated by a seperator
   ///
   /// Warning: Do not use separators with multiple characters
-  List<String> splitExtended(String sep, [int? index]) {
-    var indexes = indexesOf(sep);
+  List<String> _splitExtended(String sep, [int? index]) {
+    var indexes = _indexesOf(sep);
 
     if (index == null) {
       var out = <String>[];

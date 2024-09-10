@@ -35,7 +35,7 @@ class VCardStack {
 
     for (var line in data.replaceAll(_newLine, '\n').split('\n')) {
       // skip AGENT lines for now
-      if (line.startsWithMultiple([' ', '\t']) &&
+      if (line._startsWithMultiple([' ', '\t']) &&
           out[out.length - 1].name == VConstants.agent) {
         continue;
       }

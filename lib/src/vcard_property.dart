@@ -53,7 +53,7 @@ class VCardProperty {
       nameParameters.getNameParameterValue(VConstants.nameParamItemName);
 
   static VCardProperty? _fromLine(String line) {
-    var split = line.trim().splitExtended(VConstants._separatorPair, 1);
+    var split = line.trim()._splitExtended(VConstants._separatorPair, 1);
     if (split.length < 2) return null;
 
     var name = split[0].trim().split(VConstants._separatorValue);
@@ -65,7 +65,7 @@ class VCardProperty {
     }
 
     for (var extra in name.sublist(1)) {
-      var split = extra.splitMultiChoice(['=', '#']);
+      var split = extra._splitMultiChoice(['=', '#']);
 
       if (split.length < 2) {
         nameExtras.add(MapEntry(VConstants.nameParamType, split[0]));
