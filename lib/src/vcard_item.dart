@@ -72,14 +72,14 @@ class VCardItem {
         findProperties(VConstants.end).length == 1;
   }
 
-  /// Find all properties by [name].
+  /// Find all properties by [name]. Null returns all properties
   ///
   /// Example:
   /// ```dart
   /// var names = vcardItem.findProperties(VConstants.name);
   /// ```
-  List<VCardProperty> findProperties(String name) =>
-      _lines.where((e) => e.name == name).toList();
+  List<VCardProperty> findProperties(String? name) =>
+      _lines.where((e) => name == null || e.name == name).toList();
 
   /// Find a property by [name].
   ///
