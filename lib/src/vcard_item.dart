@@ -19,9 +19,9 @@ part of '../vcf_dart.dart';
 
 /// The main [VCardItem] class.
 class VCardItem {
-  const VCardItem._({required List<VCardProperty> lines}) : _lines = lines;
+  const VCardItem._({required this.lines});
 
-  final List<VCardProperty> _lines;
+  final List<VCardProperty> lines;
 
   /// Get the major version number.
   int get majorVersion =>
@@ -41,30 +41,30 @@ class VCardItem {
 
   /// Whether the vCard file is valid.
   bool get isValid {
-    var beginIndex = _lines.indexWhere((e) => e.name == VConstants.begin);
-    var versionIndex = _lines.indexWhere((e) => e.name == VConstants.version);
-    var endIndex = _lines.indexWhere((e) => e.name == VConstants.end);
+    var beginIndex = lines.indexWhere((e) => e.name == VConstants.begin);
+    var versionIndex = lines.indexWhere((e) => e.name == VConstants.version);
+    var endIndex = lines.indexWhere((e) => e.name == VConstants.end);
 
     // A VCard must start with the [VConstants.begin] tag.
     return beginIndex == 0 &&
 
         // A VCard's [VConstants.begin] tag must contain [VConstants.vcard].
-        _lines[beginIndex].values.length == 1 &&
-        _lines[beginIndex].values.first == VConstants.vcard &&
+        lines[beginIndex].values.length == 1 &&
+        lines[beginIndex].values.first == VConstants.vcard &&
 
         // don't hardcode the version number index to 1 - VCard 2.1.
         versionIndex > 0 &&
 
         // A VCard's [VConstants.version] tag must contain a valid version.
-        _lines[versionIndex].values.length == 1 &&
+        lines[versionIndex].values.length == 1 &&
         [2, 3, 4].contains(majorVersion) &&
 
         // A VCard must end with the END tag.
-        endIndex == _lines.length - 1 &&
+        endIndex == lines.length - 1 &&
 
         // A VCard's [VConstants.end] tag must contain [VConstants.vcard].
-        _lines[beginIndex].values.length == 1 &&
-        _lines[beginIndex].values.first == VConstants.vcard &&
+        lines[beginIndex].values.length == 1 &&
+        lines[beginIndex].values.first == VConstants.vcard &&
 
         // A VCard cannot contain multiple [VConstants.begin], [VConstants.version] or [VConstants.end] tag.
         findProperties(VConstants.begin).length == 1 &&
@@ -79,7 +79,7 @@ class VCardItem {
   /// var names = vcardItem.findProperties(VConstants.name);
   /// ```
   List<VCardProperty> findProperties(String name) =>
-      _lines.where((e) => e.name == name).toList();
+      lines.where((e) => e.name == name).toList();
 
   /// Find a property by [name].
   ///
@@ -88,16 +88,16 @@ class VCardItem {
   /// var name = vcardItem.findFirstProperty(VConstants.name);
   /// ```
   VCardProperty? findFirstProperty(String name) {
-    var idx = _lines.indexWhere((e) => e.name == name);
-    return idx < 0 ? null : _lines[idx];
+    var idx = lines.indexWhere((e) => e.name == name);
+    return idx < 0 ? null : lines[idx];
   }
 
   @override
   String toString() =>
-      _lines.map((e) => e.toString()).toList(growable: false).toString();
+      lines.map((e) => e.toString()).toList(growable: false).toString();
 
   /// Create a VCF output from [VCardItem].
-  String get vcard => _lines
+  String get vcard => lines
       .map(
         (e) => e._getVCardLine(majorVersion),
       )
