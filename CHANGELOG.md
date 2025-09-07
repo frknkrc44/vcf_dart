@@ -1,3 +1,7 @@
+## 1.0.3
+
+* Make all VCardItem lines visible
+
 ## 1.0.2
 
 * Add new types
